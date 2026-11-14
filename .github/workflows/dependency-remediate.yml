@@ -31,6 +31,7 @@ jobs:
           npm install --package-lock-only --ignore-scripts --no-fund --no-audit
           npm audit fix --package-lock-only --ignore-scripts --no-fund || echo "Will verify remaining findings with npm audit"
           npm ci --ignore-scripts --no-audit --no-fund
+          cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf.worker.min.mjs
       - name: Typecheck
         run: npm run typecheck
       - name: Build
@@ -41,7 +42,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add package.json package-lock.json
+          git add package.json package-lock.json public/pdf.worker.min.mjs app/lib/pdf2img.ts
           if ! git diff --cached --quiet; then
             git commit -m "security: update audited dependency lockfile"
             git push origin HEAD:security/dependency-audit-fix-20261115
