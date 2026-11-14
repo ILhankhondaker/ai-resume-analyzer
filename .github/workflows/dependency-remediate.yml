@@ -27,8 +27,7 @@ jobs:
           ! grep -q 'new Function' react-router.config.ts
       - name: Upgrade React Router packages and remediate dependencies
         run: |
-          npm install --package-lock-only --ignore-scripts --no-fund --save-prod 'react-router@^7.18.2' '@react-router/node@^7.18.2' '@react-router/serve@^7.18.2'
-          npm install --package-lock-only --ignore-scripts --no-fund --save-dev '@react-router/dev@^7.18.2'
+          npm install --package-lock-only --ignore-scripts --no-fund --no-audit
           npm audit fix --package-lock-only --ignore-scripts --no-fund || echo "Will verify remaining findings with npm audit"
           npm ci --ignore-scripts --no-audit --no-fund
       - name: Typecheck
