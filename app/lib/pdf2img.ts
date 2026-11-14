@@ -32,7 +32,7 @@ export async function convertPdfToImage(
         const lib = await loadPdfJs();
 
         const arrayBuffer = await file.arrayBuffer();
-        const pdf = await lib.getDocument({ data: arrayBuffer }).promise;
+        const pdf = await lib.getDocument({ data: arrayBuffer, isEvalSupported: false }).promise;
         const page = await pdf.getPage(1);
 
         const viewport = page.getViewport({ scale: 4 });
