@@ -27,6 +27,7 @@ jobs:
           ! grep -q 'new Function' react-router.config.ts
       - name: Upgrade React Router packages and remediate dependencies
         run: |
+          rm package-lock.json
           npm install --package-lock-only --ignore-scripts --no-fund --no-audit
           npm audit fix --package-lock-only --ignore-scripts --no-fund || echo "Will verify remaining findings with npm audit"
           npm ci --ignore-scripts --no-audit --no-fund
