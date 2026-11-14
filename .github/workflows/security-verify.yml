@@ -1,9 +1,9 @@
-name: Security cleanup verification
+name: Security CI
 
 on:
   push:
     branches:
-      - security/remove-suspicious-execution-20261115
+      - main
   pull_request:
     branches: [main]
 
@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
       - name: Install without package lifecycle scripts
         run: npm ci --ignore-scripts --no-fund --no-audit
@@ -28,5 +28,5 @@ jobs:
         run: npm run typecheck
       - name: Build
         run: npm run build
-      - name: Production dependency audit
-        run: npm audit --omit=dev --audit-level=high
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
